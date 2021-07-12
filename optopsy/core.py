@@ -103,7 +103,7 @@ def _evaluate_options(data, **kwargs):
     )[evaluated_cols]
 
 
-def _evaluate_all_options(data, **kwargs):
+def _evaluate_all_options(data: pd.DataFrame, **kwargs):
     return (
         data.pipe(_assign_dte)
         .pipe(_trim, "dte", kwargs["exit_dte"], kwargs["max_entry_dte"])
@@ -184,7 +184,7 @@ def _strategy_engine(data, leg_def, join_on=None, rules=None):
     )
 
 
-def _process_strategy(data, **context):
+def _process_strategy(data: pd.DataFrame, **context):
     _run_checks(context["params"], data)
     return (
         _evaluate_all_options(

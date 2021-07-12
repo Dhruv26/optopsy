@@ -12,29 +12,28 @@ def filepath():
     # DeltaNeutral: http://www.deltaneutral.com/
 
     # following file was downloaded from: http://www.deltaneutral.com/files/Sample_SPX_20151001_to_20151030.csv
-    return os.path.join(curr_file, "./data/Sample_SPX_20151001_to_20151030.csv")
+    return os.path.join(curr_file, "./data/20210706-153000.csv")
 
 
 def run_strategy():
 
     # indices for the column params are 0-indexed
-    spx_data = op.csv_data(
+    spx_data = op.csv_data_cus(
         filepath(),
-        underlying_symbol=0,
-        underlying_price=1,
-        option_type=5,
-        expiration=6,
-        quote_date=7,
-        strike=8,
-        bid=10,
-        ask=11,
+        underlying_symbol=2,
+        underlying_price=18,
+        option_type=3,
+        expiration=1,
+        strike=0,
+        bid=15,
+        ask=17,
     )
 
     # Backtest all single calls(long) on the SPX
 
     # All public optopsy functions return a regular Pandas DataFrame so you can use
     # regular pandas functions as you see fit to analyse the dataset
-    long_single_calls = op.long_calls(spx_data).round(2)
+    long_single_calls = op.long_calls(spx_data, exit_dte=15).round(2)
 
     print("Statistics for SPX long calls from 2015-10-01 to 2015-10-30 \n")
     print(
